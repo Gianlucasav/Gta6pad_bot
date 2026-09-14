@@ -24,14 +24,20 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 # Modifica questa lista con gli URL diretti dei prodotti da monitorare.
 PRODUCTS = [
     {
-        "name": "GTA 6 DualSense Black - PlayStation Direct",
-        "url": "https://direct.playstation.com/it-it/",  # <-- sostituisci con URL diretto
+        "name": "GTA 6 DualSense White - PlayStation Direct",
+        "url": "https://direct.playstation.com/it-it/buy-accessories/dualsense-wireless-controller-grand-theft-auto-vi-white-limited-edition-for-ps5-pc-mac-mobile",
         "in_stock_keywords": ["aggiungi al carrello", "add to cart"],
-        "out_of_stock_keywords": ["esaurito", "sold out", "out of stock", "non disponibile"],
+        "out_of_stock_keywords": ["esaurito", "sold out", "non disponibile", "in arrivo"],
     },
     {
-        "name": "GTA 6 DualSense White - Amazon",
-        "url": "https://www.amazon.it/",  # <-- sostituisci con URL diretto
+        "name": "GTA 6 DualSense Black - PlayStation Direct",
+        "url": "https://direct.playstation.com/it-it/buy-accessories/dualsense-wireless-controller-grand-theft-auto-vi-black-limited-edition-for-ps5-pc-mac-mobile",
+        "in_stock_keywords": ["aggiungi al carrello", "add to cart"],
+        "out_of_stock_keywords": ["esaurito", "sold out", "non disponibile", "in arrivo"],
+    },
+    {
+        "name": "GTA 6 DualSense White - Amazon.it",
+        "url": "https://www.amazon.it/Playstation-Controller-wireless-DualSense%C2%AE-Edizione/dp/B0HHS4DKRM",
         "in_stock_keywords": ["aggiungi al carrello", "add to cart"],
         "out_of_stock_keywords": ["attualmente non disponibile", "currently unavailable"],
     },

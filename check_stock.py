@@ -20,6 +20,8 @@ from bs4 import BeautifulSoup
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+TRIGGER_EVENT = os.environ.get("TRIGGER_EVENT", "schedule")
+IS_MANUAL_RUN = TRIGGER_EVENT == "workflow_dispatch"
 
 # Modifica questa lista con gli URL diretti dei prodotti da monitorare.
 PRODUCTS = [
@@ -94,6 +96,7 @@ def main():
         sys.exit(1)
 
     state = load_state()
+    results = []
 
     for product in PRODUCTS:
         name = product["name"]
@@ -101,6 +104,7 @@ def main():
         was_available = state.get(name, False)
 
         print(f"{name}: disponibile={available}")
+        results.append((name, available))
 
         if available is True and not was_available:
             send_telegram_message(f"🚨 RESTOCK! {name} è tornato disponibile!\n{product['url']}")
@@ -109,6 +113,20 @@ def main():
             state[name] = available
 
     save_state(state)
+
+    # Se il controllo è stato lanciato manualmente (es. da /check su Telegram),
+    # manda sempre un riepilogo, anche se non ci sono novità.
+    if IS_MANUAL_RUN:
+        lines = []
+        for name, available in results:
+            if available is True:
+                lines.append(f"✅ {name}: disponibile!")
+            elif available is False:
+                lines.append(f"❌ {name}: esaurito")
+            else:
+                lines.append(f"⚠️ {name}: non determinato")
+        summary = "📋 Riepilogo controllo manuale:\n" + "\n".join(lines)
+        send_telegram_message(summary)
 
 
 if __name__ == "__main__":

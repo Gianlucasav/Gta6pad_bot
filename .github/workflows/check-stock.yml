@@ -1,5 +1,8 @@
 name: Check GTA 6 DualSense Restock
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "*/10 * * * *"   # ogni 10 minuti
